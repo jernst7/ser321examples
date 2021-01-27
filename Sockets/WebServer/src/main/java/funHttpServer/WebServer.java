@@ -217,8 +217,9 @@ class WebServer {
 
                     } catch (Exception e) {
                         builder.append("Error 400: Incorrect parameters given");
+                        response = ("Error 400: Bad parameters.").getBytes();
                     }
-
+                    return response;
                 } else if (request.contains("github?")) {
                     // pulls the query from the request and runs it with GitHub's REST API
                     // check out https://docs.github.com/rest/reference/
