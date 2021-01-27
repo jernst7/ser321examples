@@ -24,6 +24,7 @@ import java.util.Random;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import java.nio.charset.Charset;
+import java.util.Scanner;
 
 class WebServer {
 
@@ -201,24 +202,24 @@ class WebServer {
                     Map<String, String> query_pairs = new LinkedHashMap<String, String>();
                     // extract path parameters
                     query_pairs = splitQuery(request.replace("multiply?", ""));
-
-                    // extract required fields from parameters
+                    Integer num1 = 0;
+                    Integer num2 = 0;
                     try {
-                        Integer num1 = Integer.parseInt(query_pairs.get("num1"));
-                        Integer num2 = Integer.parseInt(query_pairs.get("num2"));
-                        Integer result = num1 * num2;
-
-                        // Generate response
-                        builder.append("HTTP/1.1 200 OK\n");
-                        builder.append("Content-Type: text/html; charset=utf-8\n");
-                        builder.append("\n");
-                        builder.append("Result is: " + result);
-                    } catch (Exception e) {
+                        // extract required fields from parameters
+                        num1 = Integer.parseInt(query_pairs.get("num1"));
+                        num2 = Integer.parseInt(query_pairs.get("num2"));
+                    } catch (NumberFormatException e) {
                         builder.append("Error 400 bad parameters\n");
                         builder.append("Content-Type: text/html; charset=utf-8\n");
                         builder.append("\n");
-
                     }
+                    Integer result = num1 * num2;
+
+                    // Generate response
+                    builder.append("HTTP/1.1 200 OK\n");
+                    builder.append("Content-Type: text/html; charset=utf-8\n");
+                    builder.append("\n");
+                    builder.append("Result is: " + result);
 
                     // do math
                 } else if (request.contains("github?")) {
